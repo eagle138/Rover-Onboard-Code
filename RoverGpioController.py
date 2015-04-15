@@ -1,19 +1,13 @@
+
 #******************************************************************************
-#
-# VT RoboOps 2015
-# Team Vertex
-#
-# NAME: RoverGpioController.py
+# VT RoboOps 2015 - Team Vertex
+# 
+# NAME:    RoverGpioController.py
 #
 # PURPOSE: Handles the setup of Raspberry Pi GPIO pins and provides functions
 #          interact with them.
 #
-# AUTHOR/DATE: $Author: S. Krauss $ $Date: 2015/01/20 $
-# SOURCE/DATE: New
-#
-# REVISION HISTORY:
-# $Log$
-# 2015/01/20 STK: Initial version
+# AUTHOR:  Author: S. Krauss
 #******************************************************************************
 
 # Imported for RPi GPIO control
