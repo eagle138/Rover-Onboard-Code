@@ -1,23 +1,13 @@
 #******************************************************************************
-#
-# VT RoboOps 2015
-# Team Vertex
-#
-# NAME: RoverCommandExecutor.py
+# VT RoboOps 2015 - Team Vertex
+# 
+# NAME:    RoverCommandExecutor.py
 #
 # PURPOSE: Receives JSON formatted commands, determines what kind of command
 #          it is (video, motor/servo control, etc.) and executes it using the
 #          rover's interfaces and peripherals. 
 #
-# AUTHOR/DATE: $Author: S. Krauss $ $Date: 2014/11/07 $
-# SOURCE/DATE: New
-#
-# REVISION HISTORY:
-# $Log$
-# 2014/11/07 STK: Initial version
-# 2014/11/23 STK: Added I2C and servo control capabilities
-# 2015/01/12 STK: Added RPi camera and gstreamer commands, fixed formatting
-# 2015/01/28 STK: Moved GPIO and video stream control to their own files
+# AUTHOR:  Author: S. Krauss
 #******************************************************************************
 
 # Imported for JSON command parsing
