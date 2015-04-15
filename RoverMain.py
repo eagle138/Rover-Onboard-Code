@@ -1,9 +1,7 @@
 #******************************************************************************
-#
-# VT RoboOps 2015
-# Team Vertex
-#
-# NAME: RoverMain.py
+# VT RoboOps 2015 - Team Vertex
+# 
+# NAME:    RoverMain.py
 #
 # PURPOSE: Initiates the command sending and receiving processes. The sending
 #          process sets up a socket for the rover to send heartbeats to the
@@ -13,19 +11,7 @@
 #          When a command is received, it is sent to the command executor to 
 #          execute the command by interfacing with hardware and peripherals.
 #
-# AUTHOR/DATE: $Author: S. Krauss $ $Date: 2014/11/06 $
-# SOURCE/DATE: New
-#
-# REVISION HISTORY:
-# $Log$
-# 2014/11/06 STK: Initial version
-# 2014/11/30 STK: Removed while loop with pass that was unnecessary and caused
-#                 python to eat up all the RPi's resources
-# 2014/11/30 STK: Added function for the RPi to determine its own IP address
-# 2014/12/31 STK: Added loop to establish connection to operator and send RPi's
-#                 IP address
-# 2014/01/10 STK: Moved connection establishment to send process and added 
-#                 heartbeat sending. Fixed formatting and descriptions
+# AUTHOR:  Author: S. Krauss
 #******************************************************************************
 
 # Imported for rover status variables
