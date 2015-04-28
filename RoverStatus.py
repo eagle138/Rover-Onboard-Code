@@ -1,18 +1,11 @@
 #******************************************************************************
-#
-# VT RoboOps 2015
-# Team Vertex
-#
-# NAME: RoverStatus.py
+# VT RoboOps 2015 - Team Vertex
+# 
+# NAME:    RoverStatus.py
 #
 # PURPOSE: Holds important rover setting and status variables.
-#          
-# AUTHOR/DATE: $Author: S. Krauss $ $Date: 2014/01/22 $
-# SOURCE/DATE: New
 #
-# REVISION HISTORY:
-# $Log$
-# 2014/01/22 STK: Initial version
+# AUTHOR:  S. Krauss
 #******************************************************************************
 
 # Imported for python's TCP socket class

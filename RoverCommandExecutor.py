@@ -7,7 +7,7 @@
 #          it is (video, motor/servo control, etc.) and executes it using the
 #          rover's interfaces and peripherals. 
 #
-# AUTHOR:  Author: S. Krauss
+# AUTHOR:  S. Krauss
 #******************************************************************************
 
 # Imported for JSON command parsing

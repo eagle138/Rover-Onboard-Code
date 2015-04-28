@@ -1,9 +1,7 @@
 #******************************************************************************
-#
-# VT RoboOps 2015
-# Team Vertex
-#
-# NAME: RoverGpsController.py
+# VT RoboOps 2015 - Team Vertex
+# 
+# NAME:    RoverGpsController.py
 #
 # PURPOSE: Interfaces with the Adafruit Ultimate GPS Breakout board and
 #          and provides methods to access GPS data. This class is a subclass
@@ -11,12 +9,7 @@
 #          the GPS independently. Must call start() function to start
 #          the thread and run the GpsController.
 #
-# AUTHOR/DATE: $Author: S. Krauss $ $Date: 2014/01/14 $
-# SOURCE/DATE: New
-#
-# REVISION HISTORY:
-# $Log$
-# 2014/01/14 STK: Initial version
+# AUTHOR:  S. Krauss
 #******************************************************************************
 
 # Imported for GPS communications over USB to serial converter

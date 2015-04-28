@@ -1,23 +1,14 @@
 #******************************************************************************
-#
-# VT RoboOps 2015
-# Team Vertex
-#
-# NAME: RoverSocket.py
+# VT RoboOps 2015 - Team Vertex
+# 
+# NAME:    RoverSocket.py
 #
 # PURPOSE: Module containing the Rover's socket class for establishing a TCP
 #          connection and sending/receiving data. Can be used to create a socket
 #          that listens for connections, or one that attempts to connect to
 #          a peer
 #
-# AUTHOR/DATE: $Author: S. Krauss $ $Date: 2014/11/06 $
-# SOURCE/DATE: New
-#
-# REVISION HISTORY:
-# $Log$
-# 2014/11/06 STK: Initial version
-# 2014/11/10 STK: Added a receive that reads until a terminating character
-# 2014/01/14 STK: Fixed formatting
+# AUTHOR:  S. Krauss
 #******************************************************************************
 
 # Imported for python's TCP socket class

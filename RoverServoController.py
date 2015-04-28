@@ -1,22 +1,12 @@
 #******************************************************************************
-#
-# VT RoboOps 2015
-# Team Vertex
-#
-# NAME: RoverServoController.py
+# VT RoboOps 2015 - Team Vertex
+# 
+# NAME:    RoverServoController.py
 #
 # PURPOSE: Interfaces with the PCA9685 16-channel 12-bit servo controller by 
-#          handling its configuration and operation
+#          handling its configuration and operation.
 #
-# AUTHOR/DATE: $Author: S. Krauss $ $Date: 2014/11/23 $
-# SOURCE/DATE: New
-#
-# REVISION HISTORY:
-# $Log$
-# 2014/11/23 STK: Initial version
-# 2014/01/12 STK: Fixed variable names and formatting
-# 2015/02/14 STK: Added individual servo min and max angles
-# 2015/03/17 STK: Added saving of current servo angle and getServoAngle
+# AUTHOR:  S. Krauss
 #******************************************************************************
 
 # Imported for I2C communications

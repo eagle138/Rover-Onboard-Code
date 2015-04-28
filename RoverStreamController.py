@@ -1,19 +1,12 @@
 #******************************************************************************
-#
-# VT RoboOps 2015
-# Team Vertex
-#
-# NAME: RoverStreamController.py
+# VT RoboOps 2015 - Team Vertex
+# 
+# NAME:    RoverStreamController.py
 #
 # PURPOSE: Handles the setup of the camera and gstreamer streams and provides
 #          functions to configure them
 #
-# AUTHOR/DATE: $Author: S. Krauss $ $Date: 2015/01/20 $
-# SOURCE/DATE: New
-#
-# REVISION HISTORY:
-# $Log$
-# 2015/01/20 STK: Initial version
+# AUTHOR:  S. Krauss
 #******************************************************************************
 
 # Imported for command line process execution

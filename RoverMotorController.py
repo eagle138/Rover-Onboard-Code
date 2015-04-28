@@ -1,21 +1,12 @@
 #******************************************************************************
-#
-# VT RoboOps 2015
-# Team Vertex
-#
-# NAME: RoverMotorController.py
+# VT RoboOps 2015 - Team Vertex
+# 
+# NAME:    RoverMotorController.py
 #
 # PURPOSE: Interfaces with the MCP4725 12-bit DAC and MDC151-024031 Brushless
 #          speed controller to provide control of the rover drive motors.
 #
-# AUTHOR/DATE: $Author: S. Krauss $ $Date: 2014/12/09 $
-# SOURCE/DATE: New
-#
-# REVISION HISTORY:
-# $Log$
-# 2014/12/09 STK: Initial version
-# 2015/02/03 STK: Added an initial version of the software PID braking system.
-#                 Still need to implement proportional response.
+# AUTHOR:  S. Krauss
 #******************************************************************************
 
 # Imported for I2C communications

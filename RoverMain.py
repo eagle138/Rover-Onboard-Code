@@ -11,8 +11,9 @@
 #          When a command is received, it is sent to the command executor to 
 #          execute the command by interfacing with hardware and peripherals.
 #
-# AUTHOR:  Author: S. Krauss
+# AUTHOR:  S. Krauss
 #******************************************************************************
+
 
 # Imported for rover status variables
 import RoverStatus
