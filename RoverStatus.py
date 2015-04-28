@@ -90,7 +90,7 @@ SERVO_CURRENT_ANGLE = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 # to 1.5 ms. This is to correct for "incorrect" mounting of parts to servo.
 # When set to this angle, the parts connected to the servo will be
 # at zero degrees in their own axes but the servo will not be at its own zero.
-SERVO_ZERO_OFFSET = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+SERVO_ZERO_OFFSET = [-12.0, 1.0, 17.0, -15.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
 # Servo angle multiplier to handle servos that don't follow the pulse width
 # conventions used by the servo controller code. Also handles axis orientation
