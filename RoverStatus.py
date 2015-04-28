@@ -22,6 +22,7 @@ import socket
 # IP address of the computer running the control software and the rover as
 # set up in on the private LogMeIn Hamachi network.
 controlAddress = '25.145.186.98'
+controlAddress = '25.5.127.28'
 roverAddress = '25.1.156.230'
 
 # Ports used by the rover and control server for command sending and receiving
@@ -99,6 +100,8 @@ SERVO_ANGLE_MULTIPLIER = [1.0, 1.0, 1.0, 1.0, 0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0,
 # Rover arm segment lengths
 ARM_UPPERARM_LENGTH = 15.0 # inches
 ARM_FOREARM_LENGTH  = 9.6 # inches
+ARM_UPPERARM_LENGTH = 10.0 # inches
+ARM_FOREARM_LENGTH  = 9.5 # inches
 
 #------------------------------------------------------------------------------
 # Rover GPIO Settings
