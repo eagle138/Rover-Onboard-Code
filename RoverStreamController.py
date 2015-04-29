@@ -21,16 +21,6 @@ import RoverStatus
 import os.path
 
 #******************************************************************************
-#                              GLOBAL VARIABLES
-#******************************************************************************
-
-# Default stream parameters to use on startup
-DEFAULT_WIDTH =   640
-DEFAULT_HEIGHT =  480
-DEFAULT_FPS =     10
-DEFAULT_BITRATE = 500000
-
-#******************************************************************************
 #                              CLASS DEFINITION
 #******************************************************************************
 class StreamController:
@@ -60,7 +50,10 @@ class StreamController:
         RoverStatus.streamControllerStatus = RoverStatus.ready
         
         # Attempt to start the video stream with default parameters
-        self.cameraStart(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_FPS, DEFAULT_BITRATE)
+        self.cameraStart(0, 0, RoverStatus.DEFAULT_VIDEO_WIDTH, 
+                               RoverStatus.DEFAULT_VIDEO_HEIGHT, 
+                               RoverStatus.DEFAULT_VIDEO_FPS, 
+                               RoverStatus.DEFAULT_VIDEO_BITRATE)
     
     #--------------------------------------------------------------------------
     # CommandExecutor Destructor
