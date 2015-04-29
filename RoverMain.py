@@ -14,7 +14,6 @@
 # AUTHOR:  S. Krauss
 #******************************************************************************
 
-
 # Imported for rover status variables
 import RoverStatus
 
@@ -206,7 +205,6 @@ if __name__ == '__main__':
     servoController = ServoController()
     streamController = StreamController()
     gpsController = GpsController()
-    #accelController = AccelController()
    
     print 'GPIO   controller...', RoverStatus.gpioControllerStatus
     print 'Servo  controller...', RoverStatus.servoControllerStatus
