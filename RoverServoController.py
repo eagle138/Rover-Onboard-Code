@@ -18,6 +18,9 @@ import RoverStatus
 # Imported for kinematics calculations
 import math
 
+# Imported for delays between servo movement
+import time
+
 #******************************************************************************
 #                              GLOBAL VARIABLES
 #******************************************************************************
@@ -73,6 +76,7 @@ class ServoController:
         # Loop through and set each servo to its default angle
         for servoNum in range(0, 16):
             self.setServoAngle(servoNum, RoverStatus.SERVO_DEFAULT_ANGLE[servoNum])
+            time.sleep(0.1)
     
     #--------------------------------------------------------------------------
     # Name:        pulseWidthToAngle
