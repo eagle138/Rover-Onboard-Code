@@ -109,7 +109,7 @@ SERVO_ANGLE_MULTIPLIER = [1.0, 1.0, 1.0, 1.0, 0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0,
 # to 1.5 ms. This is to correct for "incorrect" mounting of parts to servo.
 # When set to this angle, the parts connected to the servo will be
 # at zero degrees in their own axes but the servo will not be at its own zero.
-SERVO_ZERO_OFFSET = [-12.0, 1.0, 17.0, -15.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+SERVO_ZERO_OFFSET = [3.0, -20.0, 9.0, 81.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
 # Rover arm segment lengths
 ARM_UPPERARM_LENGTH = 10.0 # inches
