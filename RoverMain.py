@@ -49,7 +49,7 @@ import os
 import socket
 
 # Imported for CPU statistics
-#import psutil
+import psutil
 
 #******************************************************************************
 #                             FUNCTION DEFINITIONS
@@ -122,8 +122,7 @@ def sendHeartbeatProcess():
             longitude = gpsController.getLongitude()
             altitude = gpsController.getAltitude()
             speed = gpsController.getSpeed()
-            #cpu_usage = psutil.cpu_percent()
-            cpu_usage = 0.0
+            cpu_usage = psutil.cpu_percent()
 
             # Create the socket for heartbeat sending
             sendSocket = TcpSocket()
@@ -175,7 +174,11 @@ def sendHeartbeatProcess():
 #------------------------------------------------------------------------------
 def roverShutdown():   
         
-    RoverStreamController.cameraStop()    
+    global streamController    
+        
+    # Shut down the video and audio streams    
+    streamController.cameraStop()
+    streamController.audioStop()     
         
     # close the receive and send processes
     sendProcess.terminate()

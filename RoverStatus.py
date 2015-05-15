@@ -21,8 +21,8 @@ import socket
 
 # IP address of the computer running the control software and the rover as
 # set up in on the private LogMeIn Hamachi network.
-# controlAddress = '25.145.186.98'
-controlAddress = '25.5.127.28'
+controlAddress = '25.145.186.98'
+#controlAddress = '25.5.127.28'
 roverAddress = '25.1.156.230'
 
 # Ports used by the rover and control server for command sending and receiving
@@ -31,9 +31,10 @@ roverSendPort =     5001
 controlListenPort = 5001
 controlSendPort =   5000
 controlVideoPort =  1338
+controlAudioPort =  1339
 
 # Interval at which to send heartbeats in milliseconds
-heartbeatIntervalMs = 2000 
+heartbeatIntervalMs = 1000 
 
 #------------------------------------------------------------------------------
 # Rover Device Status Variables
