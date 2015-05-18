@@ -102,8 +102,10 @@ def sendHeartbeatProcess():
     
     print 'Starting heartbeat send process...'
     
-    # Import the global GPS controller from main
+    # Import the controllers from main
     global gpsController
+    global motorController
+    global streamController
     
     # Start the GPS controller thread
     gpsController.start()
@@ -158,6 +160,18 @@ def sendHeartbeatProcess():
         
             # Close the socket since we timed out
             sendSocket.disconnect()
+            
+            # Turn off the stream and stop the rover movement in the event of
+            # no connection. If the video stream is hogging the bandwidth and 
+            # leaving no room for commands, this will fix the issue. If the 
+            # connection is lost and the rover is still moving, we want to
+            # stop it before it drives away out of control.
+            streamController.cameraStop()
+            streamController.audioStop()
+            motorController.setMotorSpeed(0)
+            
+            print streamController
+            
             print 'ERROR: Connection to control timed out.'
             
         except:

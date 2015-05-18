@@ -21,8 +21,8 @@ import socket
 
 # IP address of the computer running the control software and the rover as
 # set up in on the private LogMeIn Hamachi network.
-controlAddress = '25.145.186.98'
-#controlAddress = '25.5.127.28'
+#controlAddress = '25.145.186.98'
+controlAddress = '25.5.127.28'
 roverAddress = '25.1.156.230'
 
 # Ports used by the rover and control server for command sending and receiving
@@ -34,7 +34,7 @@ controlVideoPort =  1338
 controlAudioPort =  1339
 
 # Interval at which to send heartbeats in milliseconds
-heartbeatIntervalMs = 1000 
+heartbeatIntervalMs = 2000 
 
 #------------------------------------------------------------------------------
 # Rover Device Status Variables
@@ -123,8 +123,9 @@ ARM_FOREARM_LENGTH  = 9.5  # inches
 # Default video stream parameters to use on startup
 DEFAULT_VIDEO_WIDTH =   640    # pixels
 DEFAULT_VIDEO_HEIGHT =  480    # pixels
-DEFAULT_VIDEO_FPS =     10     # frames per second
+DEFAULT_VIDEO_FPS =     30     # frames per second
 DEFAULT_VIDEO_BITRATE = 500000 # bits per second
+DEFAULT_VIDEO_IFRAME =  100    # seconds
 
 
 

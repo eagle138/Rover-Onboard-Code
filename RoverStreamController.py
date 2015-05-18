@@ -51,13 +51,14 @@ class StreamController:
         RoverStatus.streamControllerStatus = RoverStatus.ready
         
         # Attempt to start the video stream with default parameters
-        #self.cameraStart(0, 0, RoverStatus.DEFAULT_VIDEO_WIDTH, 
-        #                       RoverStatus.DEFAULT_VIDEO_HEIGHT, 
-        #                       RoverStatus.DEFAULT_VIDEO_FPS, 
-        #                       RoverStatus.DEFAULT_VIDEO_BITRATE)
+        self.cameraStart(0, 0, RoverStatus.DEFAULT_VIDEO_WIDTH, 
+                               RoverStatus.DEFAULT_VIDEO_HEIGHT, 
+                               RoverStatus.DEFAULT_VIDEO_FPS, 
+                               RoverStatus.DEFAULT_VIDEO_BITRATE,
+                               RoverStatus.DEFAULT_VIDEO_IFRAME)
         
         # Attempt to start the video stream with default parameters                    
-        self.audioStart()
+        # self.audioStart()
     
     #--------------------------------------------------------------------------
     # CommandExecutor Destructor
@@ -77,9 +78,10 @@ class StreamController:
     #              - fps, framerate of video stream in frames per second
     #              - avgBitrate, average bitrate of video stream in
     #                bits per second
+    #              - iframeInt, Iframe interval in seconds
     # Returns:     N/A
     #--------------------------------------------------------------------------
-    def cameraStart(self, cameraNum, protocol, width, height, fps, avgBitrate):
+    def cameraStart(self, cameraNum, protocol, width, height, fps, avgBitrate, iframeInt):
     
         # Only attempt to start the camera if it's connected
         if(RoverStatus.webcamStatus[cameraNum] == RoverStatus.ready):
@@ -87,15 +89,16 @@ class StreamController:
             # Assemble the command line string that will be used to start
             # the gstreamer stream
             if(protocol == 0):
-                streamCommand = 'gst-launch-1.0 -v -e uvch264src initial-bitrate=%d average-bitrate=%d peak-bitrate=%d iframe-period=3000 \
+                streamCommand = 'gst-launch-1.0 -v -e uvch264src initial-bitrate=%d average-bitrate=%d peak-bitrate=%d iframe-period=%d \
                                     device=/dev/video%d name=src auto-start=true \
                                     src.vidsrc ! queue ! video/x-h264,width=%d,height=%d,framerate=%d/1 ! h264parse !  rtph264pay config-interval=1 pt=96 ! \
-                                    udpsink host=%s port=%d' % (avgBitrate, avgBitrate, avgBitrate, cameraNum, width, height, fps, RoverStatus.controlAddress, RoverStatus.controlVideoPort)
+                                    udpsink host=%s port=%d' % (avgBitrate, avgBitrate, avgBitrate, iframeInt, cameraNum, width, height, fps, RoverStatus.controlAddress, RoverStatus.controlVideoPort)
+
             else:
-                streamCommand = 'gst-launch-1.0 -v -e uvch264src initial-bitrate=%d average-bitrate=%d peak-bitrate=%d iframe-period=3000 \
+                streamCommand = 'gst-launch-1.0 -v -e uvch264src initial-bitrate=%d average-bitrate=%d peak-bitrate=%d iframe-period=%d \
                                     device=/dev/video%d name=src auto-start=true \
                                     src.vidsrc ! queue ! video/x-h264,width=%d,height=%d,framerate=%d/1 ! h264parse !  rtph264pay config-interval=1 pt=96 ! gdppay ! \
-                                    tcpserversink host=%s port=%d' % (avgBitrate, avgBitrate, avgBitrate, cameraNum, width, height, fps, RoverStatus.roverAddress, RoverStatus.roverSendPort)
+                                    tcpserversink host=%s port=%d' % (avgBitrate, avgBitrate, avgBitrate, iframeInt, cameraNum, width, height, fps, RoverStatus.roverAddress, RoverStatus.roverSendPort)
             
             # Stop any currently running stream processes
             self.cameraStop()
@@ -181,6 +184,6 @@ class StreamController:
         if(self.audioProcess != None):
         
             # Kill the camera and gstreamer process with the terminate signal
-            os.killpg(self.audioProcess.pid, signal.SIGTERM)
+            os.killpg(self.audioProcess.pid, signal.SIGKILL)
 
             

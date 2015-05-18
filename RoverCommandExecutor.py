@@ -79,15 +79,17 @@ class CommandExecutor:
             height = commandData['h']
             fps = commandData['fps']
             maxBitrate = commandData['bitrate']
+            iframe = commandData['iframe']
                  
             # Start the video stream   
-            self.streamController.cameraStart(cameraNum, protocol, width, height, fps, maxBitrate)
+            self.streamController.cameraStart(cameraNum, protocol, width, height, fps, maxBitrate, iframe)
                
         # Command to stop video feed   
         elif(commandType == 'camerastop'):
             
             # Stop the video stream
             self.streamController.cameraStop()
+            print self.streamController
         
         # Command to save the current wheel trim offset
         elif(commandType == 'trim'):
