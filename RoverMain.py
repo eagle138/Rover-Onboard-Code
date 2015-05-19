@@ -166,8 +166,8 @@ def sendHeartbeatProcess():
             # leaving no room for commands, this will fix the issue. If the 
             # connection is lost and the rover is still moving, we want to
             # stop it before it drives away out of control.
-            streamController.cameraStop()
-            streamController.audioStop()
+            #streamController.videoStop()
+            #streamController.audioStop()
             motorController.setMotorSpeed(0)
             
             print streamController
@@ -191,7 +191,7 @@ def roverShutdown():
     global streamController    
         
     # Shut down the video and audio streams    
-    streamController.cameraStop()
+    streamController.videoStop()
     streamController.audioStop()     
         
     # close the receive and send processes
@@ -227,10 +227,10 @@ if __name__ == '__main__':
     print 'Servo  controller...', RoverStatus.servoControllerStatus
     print 'Motor  controller...', RoverStatus.motorControllerStatus
     print 'Stream controller...', RoverStatus.streamControllerStatus
-    print 'GPS    controller...', RoverStatus.gpsControllerStatus  
-    print 'Accel  controller...', RoverStatus.accelControllerStatus      
+    print 'GPS    controller...', RoverStatus.gpsControllerStatus      
     print 'USB Webcam 0...     ', RoverStatus.webcamStatus[0]
-    print 'USB Webcam 1...     ', RoverStatus.webcamStatus[1] 
+    print 'USB Webcam 1...     ', RoverStatus.webcamStatus[1]
+    print 'USB Webcam 2...     ', RoverStatus.webcamStatus[2]     
     print ' '
     
     # Initiate separate processes for command receiving and heartbeat sending

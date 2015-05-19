@@ -21,8 +21,8 @@ import socket
 
 # IP address of the computer running the control software and the rover as
 # set up in on the private LogMeIn Hamachi network.
-#controlAddress = '25.145.186.98'
-controlAddress = '25.5.127.28'
+controlAddress = '25.145.186.98'
+#controlAddress = '25.5.127.28'
 roverAddress = '25.1.156.230'
 
 # Ports used by the rover and control server for command sending and receiving
@@ -50,8 +50,7 @@ servoControllerStatus  = notConnected
 motorControllerStatus  = notConnected
 streamControllerStatus = notConnected
 gpsControllerStatus    = notConnected
-accelControllerStatus  = notConnected
-webcamStatus = [notConnected, notConnected]
+webcamStatus = [notConnected, notConnected, notConnected]
 
 #------------------------------------------------------------------------------
 # Rover GPIO Settings
@@ -119,6 +118,9 @@ ARM_FOREARM_LENGTH  = 9.5  # inches
 #------------------------------------------------------------------------------
 # Rover Data Stream Settings
 #------------------------------------------------------------------------------
+
+# USB Webcam to get audio data from
+AUDIO_WEBCAM_NUM = 0
 
 # Default video stream parameters to use on startup
 DEFAULT_VIDEO_WIDTH =   640    # pixels

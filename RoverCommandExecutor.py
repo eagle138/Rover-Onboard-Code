@@ -74,7 +74,6 @@ class CommandExecutor:
             
             # Extract the stream parameters from the command string
             cameraNum = commandData['num']
-            protocol = commandData['proto']
             width = commandData['w']
             height = commandData['h']
             fps = commandData['fps']
@@ -82,14 +81,13 @@ class CommandExecutor:
             iframe = commandData['iframe']
                  
             # Start the video stream   
-            self.streamController.cameraStart(cameraNum, protocol, width, height, fps, maxBitrate, iframe)
+            self.streamController.cameraStart(cameraNum, width, height, fps, maxBitrate, iframe)
                
         # Command to stop video feed   
         elif(commandType == 'camerastop'):
             
             # Stop the video stream
-            self.streamController.cameraStop()
-            print self.streamController
+            self.streamController.videoStop()
         
         # Command to save the current wheel trim offset
         elif(commandType == 'trim'):
@@ -157,7 +155,10 @@ class CommandExecutor:
         elif(commandType == 'pwm'):
         
             # Set the servo PWM
-            self.servoController.setServoPulseWidth(commandData['servonum'], commandData['pw'])               
+            self.servoController.setServoPulseWidth(commandData['servonum'], commandData['pw'])  
+
+        else:
+            print "ERROR: Unknown command!"
                     
         #except: 
             #print 'ERROR: Unable to execute command!'
