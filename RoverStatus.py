@@ -36,6 +36,10 @@ controlAudioPort =  1339
 # Interval at which to send heartbeats in milliseconds
 heartbeatIntervalMs = 2000 
 
+# Number of connection to control timeouts before video and audio streams
+# are terminated in case the network is being flooded by them
+CONNECTION_TIMEOUTS = 2 
+
 #------------------------------------------------------------------------------
 # Rover Device Status Variables
 #------------------------------------------------------------------------------
@@ -128,6 +132,3 @@ DEFAULT_VIDEO_HEIGHT =  480    # pixels
 DEFAULT_VIDEO_FPS =     30     # frames per second
 DEFAULT_VIDEO_BITRATE = 500000 # bits per second
 DEFAULT_VIDEO_IFRAME =  100    # seconds
-
-
-

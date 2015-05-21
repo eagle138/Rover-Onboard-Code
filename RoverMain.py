@@ -18,7 +18,7 @@
 import RoverStatus
 
 # Imported for set-up of communication sockets
-from RoverSocket import TcpSocket
+import RoverSocket
 
 # Imported for command execution
 from RoverCommandExecutor import CommandExecutor
@@ -77,9 +77,9 @@ def receiveCommandsProcess():
     commandExecutor = CommandExecutor(gpioController, servoController, motorController, streamController) 
     
     #  Create and open the socket the rover will be listening on
-    receiveSocket = TcpSocket()
+    receiveSocket = RoverSocket.TcpSocket()
     receiveSocket.open(RoverStatus.roverAddress, RoverStatus.roverListenPort)
-    
+
     # Continuously loops to check for TCP socket connections and accept
     # any commands received
     while True:
@@ -107,8 +107,17 @@ def sendHeartbeatProcess():
     global motorController
     global streamController
     
+    # Variable to store the number of times the connection to control has
+    # timed out in a row.
+    numTimeouts = 0
+    
     # Start the GPS controller thread
     gpsController.start()
+    
+    # Command strings to send from the rover to itself in case of disconnection
+    videostopString = "{\"command\":\"videostop\"}"
+    audiostopString = "{\"command\":\"audiostop\"}"
+    motorstopString = "{\"command\":\"motorspeed\", \"speed\": 0.0}"
     
     # Continuously loops to send heartbeat over TCP at the defined interval
     while True:
@@ -125,12 +134,20 @@ def sendHeartbeatProcess():
             altitude = gpsController.getAltitude()
             speed = gpsController.getSpeed()
             cpu_usage = psutil.cpu_percent()
-
-            # Create the socket for heartbeat sending
-            sendSocket = TcpSocket()
         
-            # Set the connection timeout to half of the heartbeat interval
-            sendSocket.setTimeout(RoverStatus.heartbeatIntervalMs/2000)
+            # If the CPU usage is 100%, stop the video and audio streams
+            # that are causing it so that the quality can be lowered.
+            if (cpu_usage == 100):
+
+                RoverSocket.sendCommandString(RoverStatus.roverAddress, 
+                                              RoverStatus.roverListenPort, 
+                                              videostopString, 
+                                              RoverStatus.heartbeatIntervalMs)
+                                              
+                RoverSocket.sendCommandString(RoverStatus.roverAddress, 
+                                              RoverStatus.roverListenPort, 
+                                              audiostopString, 
+                                              RoverStatus.heartbeatIntervalMs)
         
             # Form the  JSON formatted heartbeat command string
             heartbeatString = json.dumps({'command': 'heartbeat', 
@@ -139,16 +156,14 @@ def sendHeartbeatProcess():
                                           'long': longitude, 
                                           'alt': altitude, 
                                           'speed': speed})
-        
-            # Connect to the IP address and port that the control server is 
-            # listening on
-            sendSocket.connect(RoverStatus.controlAddress, RoverStatus.controlListenPort)
-
-            # Send the heartbeat
-            sendSocket.send(heartbeatString, len(heartbeatString))
-            
-            # Close the socket
-            sendSocket.disconnect()
+    
+            RoverSocket.sendCommandString(RoverStatus.controlAddress, 
+                                          RoverStatus.controlListenPort, 
+                                          heartbeatString, 
+                                          RoverStatus.heartbeatIntervalMs)
+                                          
+            # Reset the number of timeouts upon a successful connection
+            numTimeouts = 0
         
         # Called when ctrl+c is hit to exit program
         except(KeyboardInterrupt, SystemExit):
@@ -158,27 +173,40 @@ def sendHeartbeatProcess():
         
         except(socket.timeout):
         
-            # Close the socket since we timed out
-            sendSocket.disconnect()
-            
-            # Turn off the stream and stop the rover movement in the event of
-            # no connection. If the video stream is hogging the bandwidth and 
-            # leaving no room for commands, this will fix the issue. If the 
-            # connection is lost and the rover is still moving, we want to
-            # stop it before it drives away out of control.
-            #streamController.videoStop()
-            #streamController.audioStop()
-            motorController.setMotorSpeed(0)
-            
-            print streamController
-            
             print 'ERROR: Connection to control timed out.'
             
+            # Increment the number of timeouts toward the limit set in
+            # the settings file. Will be reset upon successful connection.
+            numTimeouts += 1 
+            
+            # Send a command from the rover to itself to turn off the motors
+            # in case the connection has been severed while we're still
+            # moving. We don't want the rover running away out of control.
+            RoverSocket.sendCommandString(RoverStatus.roverAddress, 
+                                          RoverStatus.roverListenPort, 
+                                          motorstopString, 
+                                          RoverStatus.heartbeatIntervalMs)
+                                          
+            # If the number of timeouts of the connection to the control 
+            # software has hit the set limit 
+            if (numTimeouts >= RoverStatus.CONNECTION_TIMEOUTS):
+
+                # Send commands to shut off the audio and video streams to 
+                # make sure they are not flooding the network causing
+                # the loss of control.
+                RoverSocket.sendCommandString(RoverStatus.roverAddress, 
+                                              RoverStatus.roverListenPort, 
+                                              videostopString, 
+                                              RoverStatus.heartbeatIntervalMs)
+                                              
+                RoverSocket.sendCommandString(RoverStatus.roverAddress, 
+                                              RoverStatus.roverListenPort, 
+                                              audiostopString, 
+                                              RoverStatus.heartbeatIntervalMs)
+                                              
         except:
 
-            # Close the socket since connection was refused
-            sendSocket.disconnect()
-            print 'ERROR: Connection to control was refused.'
+            print 'ERROR: Send process general exception caught!'
                    
 #------------------------------------------------------------------------------
 # Name:        roverShutdown
@@ -254,9 +282,3 @@ if __name__ == '__main__':
         
     except:
        print "ERROR: Multiprocessing failed."
-
-    
-
-
-
-
