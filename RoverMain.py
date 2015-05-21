@@ -148,6 +148,8 @@ def sendHeartbeatProcess():
                                               RoverStatus.roverListenPort, 
                                               audiostopString, 
                                               RoverStatus.heartbeatIntervalMs)
+                
+                print "WARNING: Video and audio disabled due to CPU usage!"
         
             # Form the  JSON formatted heartbeat command string
             heartbeatString = json.dumps({'command': 'heartbeat', 
@@ -189,8 +191,8 @@ def sendHeartbeatProcess():
                                           
             # If the number of timeouts of the connection to the control 
             # software has hit the set limit 
-            if (numTimeouts >= RoverStatus.CONNECTION_TIMEOUTS):
-
+            if(numTimeouts >= RoverStatus.CONNECTION_TIMEOUTS):
+            
                 # Send commands to shut off the audio and video streams to 
                 # make sure they are not flooding the network causing
                 # the loss of control.
@@ -203,6 +205,8 @@ def sendHeartbeatProcess():
                                               RoverStatus.roverListenPort, 
                                               audiostopString, 
                                               RoverStatus.heartbeatIntervalMs)
+                                              
+                print "WARNING: Video and audio disabled due to connection timeouts!"
                                               
         except:
 
