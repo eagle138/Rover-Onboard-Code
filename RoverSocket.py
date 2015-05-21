@@ -15,6 +15,54 @@
 import socket
 
 #******************************************************************************
+#                               FUNCTIONS
+#******************************************************************************
+
+#------------------------------------------------------------------------------
+# Name:        sendCommandString
+# Description: Sends the given command string to the given address over
+#              a TCP connection. Handles connection opening and closing.
+#              Raises a TimeoutError if the connection times out.
+# Arguments:   - address, peer IP address to send command string to
+#              - port, peer port address to send command string to
+#              - message, message to be sent to peer
+#              - timeoutMs, message connection timeout in milliseconds
+# Returns:     N/A
+#------------------------------------------------------------------------------
+def sendCommandString(address, port, message, timeoutMs):
+
+    try:
+    
+        # Create the socket for command sending
+        sendSocket = TcpSocket()
+
+        # Set the connection timeout
+        sendSocket.setTimeout(timeoutMs/1000)
+            
+        # Connect to the target address and port
+        sendSocket.connect(address, port)
+
+        # Send the a command string
+        sendSocket.send(message, len(message))
+
+        # Close the socket
+        sendSocket.disconnect()
+        
+    except(socket.timeout):
+    
+        # Close the socket
+        sendSocket.disconnect()
+
+        raise socket.timeout
+    
+    except:
+    
+        print "ERROR: Connection to %s:%d refused!" % (address, port)
+    
+        # Close the socket
+        sendSocket.disconnect()
+
+#******************************************************************************
 #                              CLASS DEFINITION
 #******************************************************************************
 class TcpSocket:
@@ -109,7 +157,7 @@ class TcpSocket:
     #              - length, length of message to be sent
     # Returns:     N/A
     #--------------------------------------------------------------------------
-    def send(self, msg, length):
+    def send(self, message, length):
         
         # Variable to store the number of bytes successfully sent
         bytesSent = 0
@@ -118,7 +166,7 @@ class TcpSocket:
         while bytesSent < length:
         
             # Send some more bytes
-            sent = self.sock.send(msg[bytesSent:])
+            sent = self.sock.send(message[bytesSent:])
             
             # Return an error if the socket connection was somehow broken
             if sent == 0:
@@ -202,12 +250,4 @@ class TcpSocket:
         
         except:
             print 'ERROR: TCP receive terminated.'
-    
- 
-
-
-    
-
-
-
-
+        
