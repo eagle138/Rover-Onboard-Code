@@ -20,6 +20,8 @@ import RoverStatus
 # Imported to check for USB webcam connections
 import os.path
 
+import threading
+
 #******************************************************************************
 #                              CLASS DEFINITION
 #******************************************************************************
@@ -65,7 +67,7 @@ class StreamController:
                           RoverStatus.DEFAULT_VIDEO_IFRAME)
         
         # Attempt to start the audio stream with default parameters                    
-        self.audioStart()
+        #self.audioStart()
     
     #--------------------------------------------------------------------------
     # CommandExecutor Destructor
@@ -111,7 +113,7 @@ class StreamController:
                 FNULL = open(os.devnull, 'w')
 
                 # Execute the command line command, redirect stdout to /dev/null
-                self.videoProcess = subprocess.Popen("exec " + streamCommand, shell=True, stdout=FNULL, preexec_fn=os.setsid)
+                self.videoProcess = subprocess.Popen(streamCommand.split(), stdout=FNULL, stderr=FNULL)
                 
                 # Set the stream controller status to ready
                 RoverStatus.streamControllerStatus = RoverStatus.ready
@@ -170,8 +172,6 @@ class StreamController:
     # Returns:     N/A
     #--------------------------------------------------------------------------
     def videoStop(self):
-
-        print self.videoProcess
     
         # If the gstreamer stream is currently running
         if(self.videoProcess != None):
@@ -179,6 +179,7 @@ class StreamController:
             # Kill the camera and gstreamer process with the terminate signal
             #os.killpg(self.videoProcess.pid, signal.SIGKILL)
             self.videoProcess.kill()
+            #subprocess.Popen('sudo kill $(pidof gst-launch-1.0)', shell=True)
      
     #--------------------------------------------------------------------------
     # Name:        audioStop
