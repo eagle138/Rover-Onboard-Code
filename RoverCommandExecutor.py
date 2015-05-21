@@ -69,8 +69,8 @@ class CommandExecutor:
             # Set the specified pin
             self.gpioController.gpioSetPin(pinNum, pinState)
                 
-        # Command to start video feed
-        elif(commandType == 'camera'):
+        # Command to start video stream
+        elif(commandType == 'videostart'):
             
             # Extract the stream parameters from the command string
             cameraNum = commandData['num']
@@ -83,11 +83,23 @@ class CommandExecutor:
             # Start the video stream   
             self.streamController.cameraStart(cameraNum, width, height, fps, maxBitrate, iframe)
                
-        # Command to stop video feed   
-        elif(commandType == 'camerastop'):
+        # Command to start audio stream   
+        elif(commandType == 'audiostart'):
+            
+            # Start the audio stream
+            self.streamController.audioStart()       
+               
+        # Command to stop video stream   
+        elif(commandType == 'videostop'):
             
             # Stop the video stream
             self.streamController.videoStop()
+        
+        # Command to stop audio feed   
+        elif(commandType == 'audiostop'):
+            
+            # Stop the audio stream
+            self.streamController.audioStop()
         
         # Command to save the current wheel trim offset
         elif(commandType == 'trim'):
