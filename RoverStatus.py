@@ -16,6 +16,29 @@ import socket
 #******************************************************************************
 
 #------------------------------------------------------------------------------
+# Rover General Settings
+#------------------------------------------------------------------------------
+
+# Option to print incoming commands on the rover control code console display
+PRINT_COMMANDS = False
+
+#------------------------------------------------------------------------------
+# Rover Device Status Variables
+#------------------------------------------------------------------------------
+
+# Status indication variables
+notConnected = 'Not connected'
+ready = 'Ready'
+
+# Rover status variables
+gpioControllerStatus   = notConnected
+servoControllerStatus  = notConnected
+motorControllerStatus  = notConnected
+streamControllerStatus = notConnected
+gpsControllerStatus    = notConnected
+webcamStatus = [notConnected, notConnected, notConnected]
+
+#------------------------------------------------------------------------------
 # Rover Network Settings
 #------------------------------------------------------------------------------
 
@@ -39,22 +62,6 @@ heartbeatIntervalMs = 2000
 # Number of connection to control timeouts before video and audio streams
 # are terminated in case the network is being flooded by them
 CONNECTION_TIMEOUTS = 2 
-
-#------------------------------------------------------------------------------
-# Rover Device Status Variables
-#------------------------------------------------------------------------------
-
-# Status indication variables
-notConnected = 'Not connected'
-ready = 'Ready'
-
-# Rover status variables
-gpioControllerStatus   = notConnected
-servoControllerStatus  = notConnected
-motorControllerStatus  = notConnected
-streamControllerStatus = notConnected
-gpsControllerStatus    = notConnected
-webcamStatus = [notConnected, notConnected, notConnected]
 
 #------------------------------------------------------------------------------
 # Rover GPIO Settings
