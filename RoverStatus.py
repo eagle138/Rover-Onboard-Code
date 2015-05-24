@@ -96,8 +96,9 @@ SERVO_ARM_WRIST_ROTATION  = 8
 SERVO_ARM_CLAW            = 9
 
 # Rover camera servo numbers
-SERVO_CAMERA_AZIMUTH      = 10
-SERVO_CAMERA_ELEVATION    = 11
+SERVO_CAMERA_MAST         = 10
+SERVO_CAMERA_AZIMUTH      = 11
+SERVO_CAMERA_ELEVATION    = 12
 
 # Servo pulse refresh rate in Hz
 PULSE_REFRESH_RATE_HZ = 60
