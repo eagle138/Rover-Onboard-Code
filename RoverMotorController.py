@@ -37,6 +37,13 @@ CMD_WRITEDAC = 0x40
 # Motor speed increment for each iteration of the adaptive braking
 MOTOR_SPEED_INCREMENT = 0.07
 
+# Voltage input to the DAC. DAC output is scaled to the reference input.
+DAC_REF_VOLTAGE = 5.0
+
+# Maximum desired output voltage of the DAC. This will be the output voltage at
+# 100% motor speed, since motor speed is controlled by analog voltage.
+DAC_MAX_OUTPUT = 1.4
+
 #******************************************************************************
 #                              CLASS DEFINITION
 #******************************************************************************
@@ -107,7 +114,7 @@ class MotorController():
         
             # Convert the fraction to the integer value between 0 and 4095 that the 
             # DAC expects for its value register
-            output = int(abs(speed) * 4095)
+            output = int(abs(speed) * 4095 * DAC_MAX_OUTPUT / DAC_REF_VOLTAGE)
             
             try:
             
