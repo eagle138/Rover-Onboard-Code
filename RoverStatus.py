@@ -20,7 +20,7 @@ import socket
 #------------------------------------------------------------------------------
 
 # Option to print incoming commands on the rover control code console display
-PRINT_COMMANDS = False
+PRINT_COMMANDS = True
 
 #------------------------------------------------------------------------------
 # Rover Device Status Variables
@@ -44,9 +44,9 @@ webcamStatus = [notConnected, notConnected, notConnected]
 
 # IP address of the computer running the control software and the rover as
 # set up in on the private LogMeIn Hamachi network.
-controlAddress = '25.145.186.98'
-#controlAddress = '25.5.127.28'
-roverAddress = '25.1.156.230'
+#controlAddress = '25.145.186.98'
+controlAddress = '25.5.127.28'
+roverAddress = '25.129.69.92'
 
 # Ports used by the rover and control server for command sending and receiving
 roverListenPort =   5000
@@ -121,7 +121,7 @@ SERVO_ANGLE_MULTIPLIER = [1.0, 1.0, 1.0, 1.0, 0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0,
 # to 1.5 ms. This is to correct for "incorrect" mounting of parts to servo.
 # When set to this angle, the parts connected to the servo will be
 # at zero degrees in their own axes but the servo will not be at its own zero.
-SERVO_ZERO_OFFSET = [3.0, -20.0, 9.0, 81.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+SERVO_ZERO_OFFSET = [3.0, -20.0, 9.0, 81.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -69.0, 0.0, 0.0, 0.0]
 
 # Rover arm segment lengths
 ARM_UPPERARM_LENGTH = 10.0 # inches
