@@ -44,8 +44,9 @@ webcamStatus = [notConnected, notConnected, notConnected]
 
 # IP address of the computer running the control software and the rover as
 # set up in on the private LogMeIn Hamachi network.
-#controlAddress = '25.145.186.98'
-controlAddress = '25.5.127.28'
+#controlAddress = '25.145.186.98' # Deimos
+#controlAddress = '25.5.127.28' # Umbra
+controlAddress = '25.92.145.123' # Control Room
 roverAddress = '25.129.69.92'
 
 # Ports used by the rover and control server for command sending and receiving
