@@ -42,7 +42,7 @@ DAC_REF_VOLTAGE = 5.0
 
 # Maximum desired output voltage of the DAC. This will be the output voltage at
 # 100% motor speed, since motor speed is controlled by analog voltage.
-DAC_MAX_OUTPUT = 1.4
+DAC_MAX_OUTPUT = 5.0
 
 #******************************************************************************
 #                              CLASS DEFINITION
