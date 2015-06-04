@@ -65,7 +65,7 @@ class StreamController:
                           RoverStatus.DEFAULT_VIDEO_IFRAME)
         
         # Attempt to start the audio stream with default parameters                    
-        self.audioStart()
+        self.audioStart(0)
     
     #--------------------------------------------------------------------------
     # CommandExecutor Destructor
@@ -125,23 +125,24 @@ class StreamController:
     #--------------------------------------------------------------------------
     # Name:        audioStart
     # Description: Starts the audio stream
-    # Arguments:   N/A
+    # Arguments:   - cameraNum, camera number to pull audio from
     # Returns:     N/A
     #--------------------------------------------------------------------------
-    def audioStart(self):
+    def audioStart(self, cameraNum):
     
         # Only attempt to start the camera if it's connected
-        if(RoverStatus.webcamStatus[0] == RoverStatus.ready):
+        if(RoverStatus.webcamStatus[cameraNum] == RoverStatus.ready):
     
             # Assemble the command line string that will be used to start
             # the gstreamer audio stream over UDP
-            streamCommand = 'gst-launch-1.0 alsasrc device=hw:1 \
+            streamCommand = 'gst-launch-1.0 alsasrc device=hw:%d \
+                                ! volume volume=8.0 \
                                 ! audioconvert \
                                 ! audioresample \
                                 ! alawenc \
                                 ! rtppcmapay \
                                 ! udpsink host=%s port=%d' \
-                                % (RoverStatus.controlAddress, RoverStatus.controlAudioPort)
+                                % (cameraNum, RoverStatus.controlAddress, RoverStatus.controlAudioPort)
                                 
             # Stop any currently running stream processes
             self.audioStop()
@@ -152,7 +153,7 @@ class StreamController:
                 FNULL = open(os.devnull, 'w')
 
                 # Execute the command line command, redirect stdout to /dev/null
-                self.audioProcess = subprocess.Popen(streamCommand.split(), stdout=FNULL, stderr=FNULL)
+                self.audioProcess = subprocess.Popen(streamCommand.split(), stdout=FNULL)#, stderr=FNULL)
                 
                 # Set the stream controller status to ready
                 RoverStatus.streamControllerStatus = RoverStatus.ready

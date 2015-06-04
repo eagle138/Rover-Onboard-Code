@@ -106,8 +106,8 @@ SERVO_CAMERA_ELEVATION    = 12
 PULSE_REFRESH_RATE_HZ = 60
 
 # Servo minimum and maximum angles for each of the 16 servos
-SERVO_MIN_ANGLE = [-90, -90, -90, -90, -180, -180, -180, -90, -90, -180, -90, -90, -90, -90, -90, -90]
-SERVO_MAX_ANGLE = [ 90,  90,  90,  90,  180,  180,  180,  90,  90,  180,  90,  90,  90,  90,  90,  90]
+SERVO_MIN_ANGLE = [-90, -90, -90, -90, -180, -180, -180, -32, -180, -180, -90, -90, -90, -90, -90, -90]
+SERVO_MAX_ANGLE = [ 90,  90,  90,  90,  180,  180,  180,  142,  180,  180,  90,  90,  90,  90,  90,  90]
 
 # Servo default and current angle for each of the 16 servos. The default 
 # position is the position they will be moved to upon rover start-up.

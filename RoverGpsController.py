@@ -38,29 +38,29 @@ class GpsController(Thread):
         Thread.__init__(self)
         
         # Check if the GPS module is connected by checking if /dev/ttyUSB0 exists
-        #if(os.path.exists('/dev/ttyUSB0')):
+        if(os.path.exists('/dev/ttyUSB0')):
         
-        try:
-    
-            # Start gathering the GPS data stream
-            self.gpsSession = gps(mode=WATCH_ENABLE)
+            try:
         
-            # Create a variable to store the thread's running status
-            self.running = False
+                # Start gathering the GPS data stream
+                self.gpsSession = gps(mode=WATCH_ENABLE)
             
-            # Set the GPS controller status to connected
-            RoverStatus.gpsControllerStatus = RoverStatus.ready
-        
-        except:
+                # Create a variable to store the thread's running status
+                self.running = False
+                
+                # Set the GPS controller status to connected
+                RoverStatus.gpsControllerStatus = RoverStatus.ready
             
-            # Change the GPS controller status to not connected because USB
-            # failed to communicate with the GPS module
-            RoverStatus.gpsControllerStatus = RoverStatus.notConnected
+            except:
+                
+                # Change the GPS controller status to not connected because USB
+                # failed to communicate with the GPS module
+                RoverStatus.gpsControllerStatus = RoverStatus.notConnected
             
-        #else:
+        else:
         
             # Set the GPS controller status to not connected
-            #RoverStatus.gpsControllerStatus = RoverStatus.notConnected
+            RoverStatus.gpsControllerStatus = RoverStatus.notConnected
         
     #--------------------------------------------------------------------------
     # Name:        run
