@@ -258,7 +258,51 @@ class MotorController():
             self.motorSpeed = self.motorSpeed + (incrementDirection * MOTOR_SPEED_INCREMENT)
             self.setMotorSpeed(self.motorSpeed)
 
+    #------------------------------------------------------------------------------
+    # Name:        turnInPlace
+    # Description: Sets the motors to the same direction and sets their speed.
+    #              Used in conjunction with the steering servos set at 45 degrees
+    #              for smooth turning with no torque.
+    # Arguments:   - speed, fraction of maximum motor speed from 0 to 1
+    # Returns:     N/A
+    #------------------------------------------------------------------------------           
+    def turnInPlace(self, speed):
 
+        # Only attempt to move the motors if the motor controller is
+        # actually connected
+        if(RoverStatus.motorControllerStatus == RoverStatus.ready):
+    
+            # Ensure that the speed fraction is between -1 and 1
+            if(speed < -1):
+                speed = -1
+              
+            elif(speed > 1):
+                speed = 1
+        
+            # Determine if we want forward or reverse
+            if(speed > 0):
+                
+                # Set the wheels in the same direction
+                GPIO.output(RoverStatus.PIN_WHEEL_DIR_RIGHT, 0)
+                GPIO.output(RoverStatus.PIN_WHEEL_DIR_LEFT, 0)
+                
+            elif(speed < 0):
+                                
+                # Set the wheels in the same direction
+                GPIO.output(RoverStatus.PIN_WHEEL_DIR_RIGHT, 1)
+                GPIO.output(RoverStatus.PIN_WHEEL_DIR_LEFT, 1)
+        
+            # Convert the fraction to the integer value between 0 and 4095 that the 
+            # DAC expects for its value register
+            output = int(abs(speed) * 4095 * DAC_MAX_OUTPUT / DAC_REF_VOLTAGE)
+            
+            try:
+            
+                # Send the DAC output value to the DAC
+                self.I2Cbus.write_i2c_block_data(DAC_ADDR, CMD_WRITEDAC, [(output >> 4) & 0xFF, (output << 4) & 0xFF])
+                
+            except(IOError):
+                print 'ERROR: I2C communications failed'   
 
 
         

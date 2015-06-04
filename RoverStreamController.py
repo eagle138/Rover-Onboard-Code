@@ -20,8 +20,6 @@ import RoverStatus
 # Imported to check for USB webcam connections
 import os.path
 
-import threading
-
 #******************************************************************************
 #                              CLASS DEFINITION
 #******************************************************************************
@@ -67,7 +65,7 @@ class StreamController:
                           RoverStatus.DEFAULT_VIDEO_IFRAME)
         
         # Attempt to start the audio stream with default parameters                    
-        #self.audioStart()
+        self.audioStart()
     
     #--------------------------------------------------------------------------
     # CommandExecutor Destructor
@@ -154,7 +152,7 @@ class StreamController:
                 FNULL = open(os.devnull, 'w')
 
                 # Execute the command line command, redirect stdout to /dev/null
-                self.audioProcess = subprocess.Popen(streamCommand, shell=True, stdout=FNULL, preexec_fn=os.setsid)
+                self.audioProcess = subprocess.Popen(streamCommand.split(), stdout=FNULL, stderr=FNULL)
                 
                 # Set the stream controller status to ready
                 RoverStatus.streamControllerStatus = RoverStatus.ready
@@ -176,10 +174,9 @@ class StreamController:
         # If the gstreamer stream is currently running
         if(self.videoProcess != None):
         
-            # Kill the camera and gstreamer process with the terminate signal
-            #os.killpg(self.videoProcess.pid, signal.SIGKILL)
+            # Kill the gtreamer process with the kill signal
             self.videoProcess.kill()
-            #subprocess.Popen('sudo kill $(pidof gst-launch-1.0)', shell=True)
+
      
     #--------------------------------------------------------------------------
     # Name:        audioStop
@@ -192,7 +189,7 @@ class StreamController:
         # If the gstreamer stream is currently running
         if(self.audioProcess != None):
         
-            # Kill the camera and gstreamer process with the terminate signal
-            os.killpg(self.audioProcess.pid, signal.SIGKILL)
+            # Kill the gstreamer process with the kill signal
+            self.audioProcess.kill()
 
             

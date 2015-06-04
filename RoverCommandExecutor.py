@@ -153,6 +153,21 @@ class CommandExecutor:
                 self.servoController.setServoAngle(RoverStatus.SERVO_WHEEL_BACK_RIGHT, steeringAngle * -1.0)
                 self.servoController.setServoAngle(RoverStatus.SERVO_WHEEL_BACK_LEFT, steeringAngle * -1.0)
                 
+            # Command to steer the rover by turning in place
+            elif(commandType == 'place'):
+                            
+                # Extract the motor speed value from the command string
+                motorSpeed = commandData['speed']
+                
+                # Set the steering servos to 45 degrees in a circle
+                self.servoController.setServoAngle(RoverStatus.SERVO_WHEEL_FRONT_RIGHT, -45)
+                self.servoController.setServoAngle(RoverStatus.SERVO_WHEEL_FRONT_LEFT, 45)
+                self.servoController.setServoAngle(RoverStatus.SERVO_WHEEL_BACK_RIGHT, 45)
+                self.servoController.setServoAngle(RoverStatus.SERVO_WHEEL_BACK_LEFT, -45)
+                
+                # Set the motor speed to turn in place
+                self.motorController.turnInPlace(motorSpeed)  
+                
             # Command to move the rover arm by turning arm servos
             elif(commandType == 'clawinc'):
             

@@ -42,11 +42,12 @@ webcamStatus = [notConnected, notConnected, notConnected]
 # Rover Network Settings
 #------------------------------------------------------------------------------
 
-# IP address of the computer running the control software and the rover as
-# set up in on the private LogMeIn Hamachi network.
-#controlAddress = '25.145.186.98' # Deimos
+# IP address of the computer running the control software as set up in Hamachi
+controlAddress = '25.145.186.98' # Deimos
 #controlAddress = '25.5.127.28' # Umbra
-controlAddress = '25.92.145.123' # Control Room
+#controlAddress = '25.92.145.123' # Control Room
+
+# IP address of the rover as set up by Hamachi
 roverAddress = '25.129.69.92'
 
 # Ports used by the rover and control server for command sending and receiving
@@ -105,8 +106,8 @@ SERVO_CAMERA_ELEVATION    = 12
 PULSE_REFRESH_RATE_HZ = 60
 
 # Servo minimum and maximum angles for each of the 16 servos
-SERVO_MIN_ANGLE = [-90, -90, -90, -90, -180, -180, -180, -90, -90, -90, -90, -90, -90, -90, -90, -90]
-SERVO_MAX_ANGLE = [ 90,  90,  90,  90,  180,  180,  180,  90,  90,  90,  90,  90,  90,  90,  90,  90]
+SERVO_MIN_ANGLE = [-90, -90, -90, -90, -180, -180, -180, -90, -90, -180, -90, -90, -90, -90, -90, -90]
+SERVO_MAX_ANGLE = [ 90,  90,  90,  90,  180,  180,  180,  90,  90,  180,  90,  90,  90,  90,  90,  90]
 
 # Servo default and current angle for each of the 16 servos. The default 
 # position is the position they will be moved to upon rover start-up.
@@ -122,7 +123,7 @@ SERVO_ANGLE_MULTIPLIER = [1.0, 1.0, 1.0, 1.0, 0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0,
 # to 1.5 ms. This is to correct for "incorrect" mounting of parts to servo.
 # When set to this angle, the parts connected to the servo will be
 # at zero degrees in their own axes but the servo will not be at its own zero.
-SERVO_ZERO_OFFSET = [3.0, 0.0, 9.0, 81.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -69.0, 0.0, 0.0, 0.0]
+SERVO_ZERO_OFFSET = [5.0, 9.0, 4.0, 81.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -69.0, 0.0, 0.0, 0.0]
 
 # Rover arm segment lengths
 ARM_UPPERARM_LENGTH = 10.0 # inches
@@ -132,12 +133,9 @@ ARM_FOREARM_LENGTH  = 9.5  # inches
 # Rover Data Stream Settings
 #------------------------------------------------------------------------------
 
-# USB Webcam to get audio data from
-AUDIO_WEBCAM_NUM = 0
-
 # Default video stream parameters to use on startup
 DEFAULT_VIDEO_WIDTH =   640    # pixels
 DEFAULT_VIDEO_HEIGHT =  480    # pixels
 DEFAULT_VIDEO_FPS =     30     # frames per second
 DEFAULT_VIDEO_BITRATE = 500000 # bits per second
-DEFAULT_VIDEO_IFRAME =  100    # seconds
+DEFAULT_VIDEO_IFRAME =  1      # seconds
