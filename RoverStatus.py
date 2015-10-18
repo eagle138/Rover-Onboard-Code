@@ -48,7 +48,9 @@ controlAddress = '25.145.186.98' # Deimos
 #controlAddress = '25.92.145.123' # Control Room
 
 # IP address of the rover as set up by Hamachi
-roverAddress = '25.129.69.92'
+#roverAddress = '25.129.69.92'
+roverAddress = '25.125.146.63'
+
 
 # Ports used by the rover and control server for command sending and receiving
 roverListenPort =   5000

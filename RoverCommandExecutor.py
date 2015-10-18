@@ -88,11 +88,12 @@ class CommandExecutor:
             # Command to start audio stream   
             elif(commandType == 'audiostart'):
                 
-                # Extract the camera number from the command string
+                # Extract the stream parameters from the command string
                 cameraNum = commandData['num']
+                volume = commandData['vol']
                 
                 # Start the audio stream
-                self.streamController.audioStart(cameraNum)       
+                self.streamController.audioStart(cameraNum, vol)       
                    
             # Command to stop video stream   
             elif(commandType == 'videostop'):

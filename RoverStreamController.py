@@ -65,7 +65,7 @@ class StreamController:
                           RoverStatus.DEFAULT_VIDEO_IFRAME)
         
         # Attempt to start the audio stream with default parameters                    
-        self.audioStart(0)
+        # self.audioStart(0)
     
     #--------------------------------------------------------------------------
     # CommandExecutor Destructor
@@ -92,43 +92,51 @@ class StreamController:
     def cameraStart(self, cameraNum, width, height, framerate, avgBitrate, iframeInt):
     
         # Only attempt to start the camera if it's connected
-        if(RoverStatus.webcamStatus[cameraNum] == RoverStatus.ready):
+        # !!!QUICK TEMPORARY CHANGE FOR TESTING!!!
+        if(RoverStatus.webcamStatus[cameraNum] != RoverStatus.ready):
     
             # Assemble the command line string that will be used to start
             # the gstreamer video stream over UDP
-            streamCommand = 'gst-launch-1.0 -v -e uvch264src initial-bitrate=%d average-bitrate=%d peak-bitrate=%d iframe-period=%d device=/dev/video%d name=src auto-start=true src.vidsrc \
-                                ! queue \
-                                ! video/x-h264,width=%d,height=%d,framerate=%d/1 \
-                                ! udpsink host=%s port=%d' \
-                                % (avgBitrate, avgBitrate, avgBitrate, iframeInt, cameraNum, width, height, framerate, RoverStatus.controlAddress, RoverStatus.controlVideoPort)
+            # streamCommand = 'gst-launch-1.0 -v -e uvch264src initial-bitrate=%d average-bitrate=%d peak-bitrate=%d iframe-period=%d device=/dev/video%d name=src auto-start=true src.vidsrc \
+            #                    ! queue \
+            #                    ! video/x-h264,width=%d,height=%d,framerate=%d/1 \
+            #                    ! udpsink host=%s port=%d' \
+            #                    % (avgBitrate, avgBitrate, avgBitrate, iframeInt, cameraNum, width, height, framerate, RoverStatus.controlAddress, RoverStatus.controlVideoPort)
+
+            streamCommand1 = 'raspivid -t 0 -h 720 -w 1080 -fps 25 -hf -b 2000000 -o - '
+            streamCommand2 = 'gst-launch-1.0 -v fdsrc ! h264parse ! rtph264pay config-interval=1 pt=96 ! udpsink host=%s port=%d' % (RoverStatus.controlAddress, RoverStatus.controlVideoPort)
 
             # Stop any currently running video stream processes
             self.videoStop()
             
-            try:
+            #try:
             
-                # Open /dev/null to redirect gstreamer output that we don't need to see
-                FNULL = open(os.devnull, 'w')
+            # Open /dev/null to redirect gstreamer output that we don't need to see
+            FNULL = open(os.devnull, 'w')
 
-                # Execute the command line command, redirect stdout to /dev/null
-                self.videoProcess = subprocess.Popen(streamCommand.split(), stdout=FNULL, stderr=FNULL)
-                
-                # Set the stream controller status to ready
-                RoverStatus.streamControllerStatus = RoverStatus.ready
-         
-            except:
+            # Execute the command line command, redirect stdout to /dev/null
+            #self.videoProcess = subprocess.Popen(streamCommand.split(), stdout=FNULL)#, stderr=FNULL)
+            #self.videoProcess = subprocess.Popen(streamCommand.split(), stdout=FNULL)#, stderr=FNULL)
+            self.videoProcess = subprocess.Popen(streamCommand1.split(), stdout=subprocess.PIPE)
+            p2 = subprocess.Popen(streamCommand2.split(), stdin=self.videoProcess.stdout, stdout=FNULL) 
+
+            # Set the stream controller status to ready
+            RoverStatus.streamControllerStatus = RoverStatus.ready
+
+            #except:
             
                 #Set the stream controller status to not connected
-                RoverStatus.streamControllerStatus = RoverStatus.notConnected
-                print 'ERROR: Unable to start gstreamer video stream!'
+                #RoverStatus.streamControllerStatus = RoverStatus.notConnected
+                #print 'ERROR: Unable to start gstreamer video stream!'
             
     #--------------------------------------------------------------------------
     # Name:        audioStart
     # Description: Starts the audio stream
     # Arguments:   - cameraNum, camera number to pull audio from
+    #              - cameraNum, audio volume multiplier
     # Returns:     N/A
     #--------------------------------------------------------------------------
-    def audioStart(self, cameraNum):
+    def audioStart(self, cameraNum, vol):
     
         # Only attempt to start the camera if it's connected
         if(RoverStatus.webcamStatus[cameraNum] == RoverStatus.ready):
@@ -136,13 +144,13 @@ class StreamController:
             # Assemble the command line string that will be used to start
             # the gstreamer audio stream over UDP
             streamCommand = 'gst-launch-1.0 alsasrc device=hw:%d \
-                                ! volume volume=8.0 \
+                                ! volume volume=%d \
                                 ! audioconvert \
                                 ! audioresample \
                                 ! alawenc \
                                 ! rtppcmapay \
                                 ! udpsink host=%s port=%d' \
-                                % (cameraNum, RoverStatus.controlAddress, RoverStatus.controlAudioPort)
+                                % (cameraNum, vol, RoverStatus.controlAddress, RoverStatus.controlAudioPort)
                                 
             # Stop any currently running stream processes
             self.audioStop()
